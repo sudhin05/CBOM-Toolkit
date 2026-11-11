@@ -1,0 +1,6 @@
+project,version,commit,about,py_files,findings,test_findings,red,yellow,green,libraries,readiness_%,top_algorithms,cbom_valid
+itsdangerous,2.2.0,096c8d4,Signed tokens used by Flask sessions (HMAC),15,3,0,0,3,0,0,0.0,"Unknown (2), SHA-1 (1)",True
+pyjwt,2.9.0,868cf4a,"JSON Web Token library (HMAC, RSA, ECDSA)",27,9,119,8,1,0,0,0.0,"RSA (4), ECDSA (2), Unknown (1), Ed25519 (1), Ed448 (1)",True
+python-rsa,version-4.9,c4dc7be,Pure-Python RSA implementation,30,4,8,4,0,0,0,0.0,RSA (4),True
+fabric,3.2.2,58db222,SSH deployment tool built on paramiko,49,2,0,1,0,0,1,0.0,SSH (1),True
+flask-security,5.5.2,0f5ba0e,Flask login/authentication extension,78,9,2,0,2,1,6,33.3,"AES-128 (1), HMAC-SHA-512 (1), SHA-1 (1)",True

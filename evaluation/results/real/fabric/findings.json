@@ -1,0 +1,39 @@
+[
+  {
+    "source": "code",
+    "file": "fabric/connection.py",
+    "line": 457,
+    "algorithm": "SSH",
+    "param": null,
+    "name": "SSH",
+    "primitive": "protocol",
+    "function": "connect",
+    "evidence": "SSHClient()",
+    "label": "red",
+    "quantum_safe": false,
+    "reason": "SSH session with classical key exchange (ECDH/DH), broken by Shor's algorithm",
+    "note": "paramiko only offers classical SSH key exchange (curve25519, ECDH, DH)",
+    "extra": {},
+    "project": "fabric"
+  },
+  {
+    "source": "dependency",
+    "file": "setup.py",
+    "line": 68,
+    "algorithm": "paramiko",
+    "param": null,
+    "name": "paramiko",
+    "primitive": "library",
+    "function": null,
+    "evidence": "paramiko>=2.4",
+    "label": "info",
+    "quantum_safe": false,
+    "reason": "Crypto library dependency (see code findings for how it is used)",
+    "note": "SSH: RSA, ECDSA, Ed25519 keys; ECDH/DH key exchange",
+    "extra": {
+      "package": "paramiko",
+      "version": ">=2.4"
+    },
+    "project": "fabric"
+  }
+]

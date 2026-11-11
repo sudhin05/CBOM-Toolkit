@@ -1,0 +1,11 @@
+[project]
+name = "demo-service"
+version = "0.1.0"
+dependencies = [
+  "click>=8.1",
+  "paramiko>=3.4",  # expect: paramiko
+  "rsa==4.9",  # expect: rsa
+]
+
+[project.optional-dependencies]
+jwt = ["python-jose[cryptography]>=3.3"]  # expect: python-jose

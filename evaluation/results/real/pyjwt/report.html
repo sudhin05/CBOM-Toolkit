@@ -1,0 +1,1287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CBOM Report – pyjwt 2.9.0</title>
+<style>
+  :root {
+    --bg: #f7f7f5; --card: #ffffff; --text: #1d1d1b; --muted: #6b6b66; --line: #e3e2dc;
+    --red: #c8352b; --red-bg: #fbe9e7; --yellow: #a86b00; --yellow-bg: #fdf3dc;
+    --green: #2e7d32; --green-bg: #e6f2e6; --info: #55606e; --info-bg: #eceef1;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #161615; --card: #1f1f1d; --text: #ecebe6; --muted: #a09f98; --line: #34332f;
+      --red: #ff8a80; --red-bg: #3a1e1c; --yellow: #ffcc66; --yellow-bg: #362c16;
+      --green: #8fd694; --green-bg: #1d3220; --info: #b4bcc8; --info-bg: #2a2d31;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 1180px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 26px; margin: 0 0 4px; }
+  h2 { font-size: 18px; margin: 36px 0 12px; }
+  .muted { color: var(--muted); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 20px; }
+  .top { display: grid; grid-template-columns: 220px 1fr; gap: 16px; margin-top: 24px; }
+  .score { text-align: center; }
+  .score .num { font-size: 48px; font-weight: 700; line-height: 1.1; }
+  .bar { display: flex; height: 22px; border-radius: 6px; overflow: hidden; margin: 10px 0 14px; background: var(--line); }
+  .bar div { height: 100%; }
+  .legend { display: flex; flex-wrap: wrap; gap: 18px; }
+  .legend b { font-size: 22px; display: block; }
+  .chip { display: inline-block; padding: 1px 9px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+  .red { color: var(--red); background: var(--red-bg); }
+  .yellow { color: var(--yellow); background: var(--yellow-bg); }
+  .green { color: var(--green); background: var(--green-bg); }
+  .info { color: var(--info); background: var(--info-bg); }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
+  .filters button { border: 1px solid var(--line); background: var(--card); color: var(--text);
+                    border-radius: 6px; padding: 5px 11px; cursor: pointer; font: inherit; font-size: 13px; }
+  .filters button.on { border-color: var(--text); font-weight: 600; }
+  .filters input { flex: 1; min-width: 160px; padding: 6px 10px; border: 1px solid var(--line);
+                   border-radius: 6px; background: var(--card); color: var(--text); font: inherit; }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  code { font-family: ui-monospace, Consolas, monospace; font-size: 12.5px; word-break: break-all; }
+  .small { font-size: 12.5px; }
+  @media (max-width: 720px) { .top { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Cryptographic Bill of Materials</h1>
+  <div class="muted">pyjwt 2.9.0 · scanned 2026-11-11 19:25 · cbom-scanner 1.0.0</div>
+
+  <div class="top">
+    <div class="card score">
+      <div class="muted small">Quantum readiness</div>
+      <div class="num">82.8%</div>
+      <div class="muted small">106 of 128 assets quantum-safe</div>
+    </div>
+    <div class="card">
+      <div><b>19 of 128</b> crypto assets will be broken by quantum computers</div>
+      
+      <div class="bar" role="img" aria-label="red 19, yellow 3, green 106">
+        <div style="width: 14.84375%; background: var(--red)"></div>
+        <div style="width: 2.34375%; background: var(--yellow)"></div>
+        <div style="width: 82.8125%; background: var(--green)"></div>
+      </div>
+      <div class="legend">
+        <div><b style="color: var(--red)">19</b><span class="chip red">red</span> broken by quantum</div>
+        <div><b style="color: var(--yellow)">3</b><span class="chip yellow">yellow</span> weak today / weakened</div>
+        <div><b style="color: var(--green)">106</b><span class="chip green">green</span> quantum-safe</div>
+        <div><b style="color: var(--info)">0</b><span class="chip info">info</span> crypto libraries</div>
+      </div>
+      <div class="muted small" style="margin-top: 12px">
+        By source:
+        code 120 · certificate 8
+      </div>
+    </div>
+  </div>
+
+  
+
+  <h2>Findings</h2>
+  <div class="filters">
+    <button class="on" data-label="all">All (128)</button>
+    <button data-label="red">Red (19)</button>
+    <button data-label="yellow">Yellow (3)</button>
+    <button data-label="green">Green (106)</button>
+    <button data-label="info">Libraries (0)</button>
+    <input id="q" type="search" placeholder="Filter by file, algorithm, code…" aria-label="Filter findings">
+  </div>
+  <div class="card table-wrap">
+    <table id="findings">
+      <thead><tr><th>Label</th><th>Algorithm</th><th>Where</th><th>Source</th><th>Evidence</th><th>Why</th></tr></thead>
+      <tbody>
+      
+      <tr data-label="red">
+        <td><span class="chip red">red</span></td>
+        <td><b>RSA-2048</b><div class="muted small">pke · public-key</div></td>
+        <td><code>tests/keys/testkey2_rsa.pub.pem:1</code></td>
+        <td class="small">certificate</td>
+        <td><code>-----BEGIN PUBLIC KEY-----</code></td>
+        <td class="small">Public-key algorithm broken by Shor&#39;s algorithm on a quantum computer</td>
+      </tr>
+      
+      <tr data-label="red">
+        <td><span class="chip red">red</span></td>
+        <td><b>EC-P-256</b><div class="muted small">signature · public-key</div></td>
+        <td><code>tests/keys/testkey_ec.pub:1</code></td>
+        <td class="small">certificate</td>
+        <td><code>-----BEGIN PUBLIC KEY-----</code></td>
+        <td class="small">Public-key algorithm broken by Shor&#39;s algorithm on a quantum computer</td>
+      </tr>
+      
+      <tr data-label="red">
+        <td><span class="chip red">red</span></td>
+        <td><b>EC-P-256</b><div class="muted small">signature · ssh-public-key</div></td>
+        <td><code>tests/keys/testkey_ec_ssh.pub:1</code></td>
+        <td class="small">certificate</td>
+        <td><code>ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlz...</code></td>
+        <td class="small">Public-key algorithm broken by Shor&#39;s algorithm on a quantum computer</td>
+      </tr>
+      
+      <tr data-label="red">
+        <td><span class="chip red">red</span></td>
+        <td><b>Ed25519</b><div class="muted small">signature · ssh-public-key</div></td>
+        <td><code>tests/keys/testkey_ed25519.pub:1</code></td>
+        <td class="small">certificate</td>
+        <td><code>ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC4pK2dePGgctIAsh0H/tmUr...</code></td>
+        <td class="small">Public-key algorithm broken by Shor&#39;s algorithm on a quantum computer</td>
+      </tr>
+      
+      <tr data-label="red">
+        <td><span class="chip red">red</span></td>
+        <td><b>RSA-1024</b><div class="muted small">pke · public-key</div></td>
+        <td><code>tests/keys/testkey_pkcs1.pub.pem:1</code></td>
+        <td class="small">certificate</td>
+        <td><code>-----BEGIN RSA PUBLIC KEY-----</code></td>
+        <td class="small">Public-key algorithm broken by Shor&#39;s algorithm on a quantum computer</td>
+      </tr>
+      
+      <tr data-label="red">
+        <td><span class="chip red">red</span></td>
+        <td><b>RSA-2048</b><div class="muted small">pke · certificate-key</div></td>
+        <td><code>tests/keys/testkey_rsa.cer:1</code></td>
+        <td class="small">certificate</td>
+        <td><code>certificate key: OU=Test Certificate,O=PyJWT,L=Austin,ST=Texas,C=US</code><div class="muted small">Certificate expires 2018-03-17</div></td>
+        <td class="small">Public-key algorithm broken by Shor&#39;s algorithm on a quantum computer</td>
+      </tr>
+      
+      <tr data-label="red">
+        <td><span class="chip red">red</span></td>
+        <td><b>RSA</b><div class="muted small">signature · certificate-signature</div></td>
+        <td><code>tests/keys/testkey_rsa.cer:1</code></td>
+        <td class="small">certificate</td>
+        <td><code>certificate signature: sha256WithRSAEncryption</code><div class="muted small">Signature hash: SHA-256</div></td>
+        <td class="small">Public-key algorithm broken by Shor&#39;s algorithm on a quantum computer</td>
+      </tr>
+      
+      <tr data-label="red">
+        <td><span class="chip red">red</span></td>
+        <td><b>RSA-2048</b><div class="muted small">pke · ssh-public-key</div></td>
+        <td><code>tests/keys/testkey_rsa.pub:1</code></td>
+        <td class="small">certificate</td>
+        <td><code>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDUeDMF8m/Zw6NCvILB7w0R...</code></td>
+        <td class="small">Public-key algorithm broken by Shor&#39;s algorithm on a quantum computer</td>
+      </tr>
+      
+      <tr data-label="red">
+        <td><span class="chip red">red</span></td>
+        <td><b>RSA</b><div class="muted small">signature · sign</div></td>
+        <td><code>jwt/algorithms.py:475</code></td>
+        <td class="small">code</td>
+        <td><code>padding.PKCS1v15()</code></td>
+        <td class="small">Public-key algorithm broken by Shor&#39;s algorithm on a quantum computer</td>
+      </tr>
+      
+      <tr data-label="red">
+        <td><span class="chip red">red</span></td>
+        <td><b>RSA</b><div class="muted small">signature · sign</div></td>
+        <td><code>jwt/algorithms.py:479</code></td>
+        <td class="small">code</td>
+        <td><code>padding.PKCS1v15()</code></td>
+        <td class="small">Public-key algorithm broken by Shor&#39;s algorithm on a quantum computer</td>
+      </tr>
+      
+      <tr data-label="red">
+        <td><span class="chip red">red</span></td>
+        <td><b>ECDSA</b><div class="muted small">signature · sign</div></td>
+        <td><code>jwt/algorithms.py:528</code></td>
+        <td class="small">code</td>
+        <td><code>ECDSA(self.hash_alg())</code></td>
+        <td class="small">Public-key algorithm broken by Shor&#39;s algorithm on a quantum computer</td>
+      </tr>
+      
+      <tr data-label="red">
+        <td><span class="chip red">red</span></td>
+        <td><b>ECDSA</b><div class="muted small">signature · sign</div></td>
+        <td><code>jwt/algorithms.py:544</code></td>
+        <td class="small">code</td>
+        <td><code>ECDSA(self.hash_alg())</code></td>
+        <td class="small">Public-key algorithm broken by Shor&#39;s algorithm on a quantum computer</td>
+      </tr>
+      
+      <tr data-label="red">
+        <td><span class="chip red">red</span></td>
+        <td><b>RSA</b><div class="muted small">signature · sign</div></td>
+        <td><code>jwt/algorithms.py:674</code></td>
+        <td class="small">code</td>
+        <td><code>padding.PSS( mgf=padding.MGF1(self.hash_alg()), salt_length=self.hash_alg().digest_size, )</code></td>
+        <td class="small">Public-key algorithm broken by Shor&#39;s algorithm on a quantum computer</td>
+      </tr>
+      
+      <tr data-label="red">
+        <td><span class="chip red">red</span></td>
+        <td><b>RSA</b><div class="muted small">signature · sign</div></td>
+        <td><code>jwt/algorithms.py:686</code></td>
+        <td class="small">code</td>
+        <td><code>padding.PSS( mgf=padding.MGF1(self.hash_alg()), salt_length=self.hash_alg().digest_size, )</code></td>
+        <td class="small">Public-key algorithm broken by Shor&#39;s algorithm on a quantum computer</td>
+      </tr>
+      
+      <tr data-label="red">
+        <td><span class="chip red">red</span></td>
+        <td><b>Ed25519</b><div class="muted small">signature · keygen</div></td>
+        <td><code>jwt/algorithms.py:857</code></td>
+        <td class="small">code</td>
+        <td><code>Ed25519PrivateKey.from_private_bytes(d)</code></td>
+        <td class="small">Public-key algorithm broken by Shor&#39;s algorithm on a quantum computer</td>
+      </tr>
+      
+      <tr data-label="red">
+        <td><span class="chip red">red</span></td>
+        <td><b>Ed448</b><div class="muted small">signature · keygen</div></td>
+        <td><code>jwt/algorithms.py:858</code></td>
+        <td class="small">code</td>
+        <td><code>Ed448PrivateKey.from_private_bytes(d)</code></td>
+        <td class="small">Public-key algorithm broken by Shor&#39;s algorithm on a quantum computer</td>
+      </tr>
+      
+      <tr data-label="red">
+        <td><span class="chip red">red</span></td>
+        <td><b>ECDSA-P-256</b><div class="muted small">signature · sign</div></td>
+        <td><code>tests/test_api_jwt.py:295</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(example_jwt, example_pubkey, algorithms=[&#34;ES256&#34;])</code><div class="muted small">JWT algorithm ES256</div></td>
+        <td class="small">Public-key algorithm broken by Shor&#39;s algorithm on a quantum computer</td>
+      </tr>
+      
+      <tr data-label="red">
+        <td><span class="chip red">red</span></td>
+        <td><b>RSA</b><div class="muted small">signature · sign</div></td>
+        <td><code>tests/test_api_jwt.py:319</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(example_jwt, example_pubkey, algorithms=[&#34;RS384&#34;])</code><div class="muted small">JWT algorithm RS384</div></td>
+        <td class="small">Public-key algorithm broken by Shor&#39;s algorithm on a quantum computer</td>
+      </tr>
+      
+      <tr data-label="red">
+        <td><span class="chip red">red</span></td>
+        <td><b>RSA</b><div class="muted small">signature · sign</div></td>
+        <td><code>tests/test_jwks_client.py:204</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode( token, signing_key.key, algorithms=[&#34;RS256&#34;], audience=&#34;https://expenses-api&#34;, options={&#34;verify_exp&#34;: Fal...</code><div class="muted small">JWT algorithm RS256</div></td>
+        <td class="small">Public-key algorithm broken by Shor&#39;s algorithm on a quantum computer</td>
+      </tr>
+      
+      <tr data-label="yellow">
+        <td><span class="chip yellow">yellow</span></td>
+        <td><b>Unknown</b><div class="muted small">mac · tag</div></td>
+        <td><code>jwt/algorithms.py:308</code></td>
+        <td class="small">code</td>
+        <td><code>hmac.new(key, msg, self.hash_alg)</code><div class="muted small">HMAC hash is not given or computed at runtime</div></td>
+        <td class="small">Unknown algorithm; review by hand</td>
+      </tr>
+      
+      <tr data-label="yellow">
+        <td><span class="chip yellow">yellow</span></td>
+        <td><b>TLS</b><div class="muted small">protocol · connect</div></td>
+        <td><code>tests/test_jwks_client.py:342</code></td>
+        <td class="small">code</td>
+        <td><code>ssl.create_default_context()</code><div class="muted small">Negotiated TLS version and key exchange decide quantum safety; run the TLS checker on the server</div></td>
+        <td class="small">TLS with library defaults: the key exchange is classical (ECDHE) unless a hybrid ML-KEM group is negotiated</td>
+      </tr>
+      
+      <tr data-label="yellow">
+        <td><span class="chip yellow">yellow</span></td>
+        <td><b>TLS</b><div class="muted small">protocol · connect</div></td>
+        <td><code>tests/test_jwks_client.py:351</code></td>
+        <td class="small">code</td>
+        <td><code>ssl.SSLContext(protocol=ssl.PROTOCOL_TLS_CLIENT)</code><div class="muted small">Negotiated TLS version and key exchange decide quantum safety; run the TLS checker on the server</div></td>
+        <td class="small">TLS with library defaults: the key exchange is classical (ECDHE) unless a hybrid ML-KEM group is negotiated</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:45</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(example_jwt, example_secret, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:77</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode( example_jwt, key=example_secret, algorithms=[&#34;HS256&#34;] )</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:92</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(example_jwt, example_secret, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:105</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(example_jwt, secret, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:119</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(example_jwt, secret, audience=1, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:133</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode( example_jwt, secret, audience=&#34;my_audience&#34;, algorithms=[&#34;HS256&#34;], )</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:152</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode( example_jwt, secret, audience=&#34;my_audience&#34;, algorithms=[&#34;HS256&#34;], )</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:168</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(t, &#34;secret&#34;, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:187</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode( payload, &#34;secret&#34;, algorithm=&#34;HS256&#34;, headers={&#34;typ&#34;: &#34;secevent+jwt&#34;} )</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:206</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(example_jwt, &#34;secret&#34;, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:219</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(example_jwt, &#34;secret&#34;, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:224</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, secret)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:227</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(jwt_message, secret, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:232</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, secret)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:233</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(jwt_message, secret, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:245</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(example_jwt, &#34;secret&#34;, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:254</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(example_jwt, &#34;secret&#34;, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:265</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, secret)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:266</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode( jwt_message, secret, leeway=1, algorithms=[&#34;HS256&#34;] )</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:326</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, secret)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:329</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(jwt_message, secret, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:334</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, secret)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:337</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(jwt_message, secret, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:342</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, secret)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:344</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode( jwt_message, secret, algorithms=[&#34;HS256&#34;], options={&#34;verify_exp&#34;: False}, )</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:354</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, secret)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:356</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode( jwt_message, secret, algorithms=[&#34;HS256&#34;], options={&#34;verify_nbf&#34;: False}, )</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:366</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, secret)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:370</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode( jwt_message, secret, leeway=leeway, algorithms=[&#34;HS256&#34;] )</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:378</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(jwt_message, secret, leeway=leeway, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:383</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, secret)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:386</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(jwt_message, secret, leeway=13, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:389</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(jwt_message, secret, leeway=1, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:393</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, &#34;secret&#34;)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:394</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(token, &#34;secret&#34;, audience=&#34;urn:me&#34;, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:398</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, &#34;secret&#34;)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:399</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode( token, &#34;secret&#34;, audience=[&#34;urn:you&#34;, &#34;urn:me&#34;], algorithms=[&#34;HS256&#34;], )</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:408</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, &#34;secret&#34;)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:410</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(token, &#34;secret&#34;, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:414</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, &#34;secret&#34;)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:416</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode( token, &#34;secret&#34;, audience=[&#34;urn:you&#34;, &#34;urn:him&#34;], algorithms=[&#34;HS256&#34;], )</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:425</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, &#34;secret&#34;)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:426</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(token, &#34;secret&#34;, audience=&#34;urn:me&#34;, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:431</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, &#34;secret&#34;)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:434</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(token, &#34;secret&#34;, audience=&#34;urn-me&#34;, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:438</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, &#34;secret&#34;)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:440</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(token, &#34;secret&#34;, audience=b&#34;urn:me&#34;, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:448</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, &#34;secret&#34;)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:451</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(token, &#34;secret&#34;, audience=&#34;urn:me&#34;, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:458</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, &#34;secret&#34;)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:461</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(token, &#34;secret&#34;, issuer=issuer, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:467</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, &#34;secret&#34;)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:470</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(token, &#34;secret&#34;, audience=&#34;urn:me&#34;, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:476</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, &#34;secret&#34;)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:479</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(token, &#34;secret&#34;, audience=&#34;urn:me&#34;, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:486</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, &#34;secret&#34;)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:487</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(token, &#34;secret&#34;, issuer=issuer, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:492</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, &#34;secret&#34;)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:493</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(token, &#34;secret&#34;, issuer=issuer, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:500</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, &#34;secret&#34;)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:503</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(token, &#34;secret&#34;, issuer=issuer, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:510</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, &#34;secret&#34;)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:513</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(token, &#34;secret&#34;, issuer=issuer, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:517</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, &#34;secret&#34;)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:518</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode( token, &#34;secret&#34;, options={&#34;verify_aud&#34;: False}, algorithms=[&#34;HS256&#34;], )</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:530</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, &#34;secret&#34;)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:531</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode( token, &#34;secret&#34;, options={&#34;verify_exp&#34;: False}, algorithms=[&#34;HS256&#34;], )</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:543</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, &#34;secret&#34;)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:546</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode( token, &#34;secret&#34;, options={&#34;require&#34;: [&#34;exp&#34;]}, algorithms=[&#34;HS256&#34;], )</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:560</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, &#34;secret&#34;)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:563</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode( token, &#34;secret&#34;, options={&#34;require&#34;: [&#34;iat&#34;]}, algorithms=[&#34;HS256&#34;], )</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:577</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, &#34;secret&#34;)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:580</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode( token, &#34;secret&#34;, options={&#34;require&#34;: [&#34;nbf&#34;]}, algorithms=[&#34;HS256&#34;], )</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:595</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode( token, &#34;secret&#34;, options={&#34;verify_signature&#34;: False}, algorithms=[&#34;HS256&#34;], )</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:607</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, &#34;secret&#34;)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:608</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode( token, &#34;secret&#34;, options={&#34;verify_iat&#34;: False}, algorithms=[&#34;HS256&#34;], )</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:620</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, &#34;secret&#34;)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:621</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode( token, &#34;secret&#34;, options={&#34;verify_nbf&#34;: False}, algorithms=[&#34;HS256&#34;], )</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:638</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(data, &#34;secret&#34;, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:640</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(data, &#34;secret&#34;, json_encoder=CustomJSONEncoder)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:641</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(token, &#34;secret&#34;, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:648</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, secret)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:650</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode( jwt_message, secret, algorithms=[&#34;HS256&#34;], options={&#34;verify_exp&#34;: False}, )</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:658</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode( jwt_message, secret, algorithms=[&#34;HS256&#34;], options={&#34;verify_exp&#34;: True}, )</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:668</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, secret)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:683</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, secret)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:695</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, secret)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:701</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, secret)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:706</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(jwt_message, secret, verify=False, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:719</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, secret)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:720</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(jwt_message, secret, options=options, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:725</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, secret)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:728</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(jwt_message, secret, algorithms=[&#34;HS256&#34;], foo=&#34;bar&#34;)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:734</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, secret)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:744</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, secret)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:747</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode( jwt_message, secret, audience=[&#34;urn:foo&#34;, &#34;urn:bar&#34;], options={&#34;strict_aud&#34;: False}, algorithms=[&#34;HS256&#34;], )</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:757</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode( jwt_message, secret, audience=[&#34;urn:foo&#34;, &#34;urn:bar&#34;], options={&#34;strict_aud&#34;: True}, algorithms=[&#34;HS256&#34;], )</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:768</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, secret)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:771</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode( jwt_message, secret, audience=&#34;urn:foo&#34;, options={&#34;strict_aud&#34;: False}, algorithms=[&#34;HS256&#34;], )</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:783</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode( jwt_message, secret, audience=&#34;urn:foo&#34;, options={&#34;strict_aud&#34;: True}, algorithms=[&#34;HS256&#34;], )</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:794</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, secret)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:799</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode( jwt_message, secret, audience=&#34;urn:bar&#34;, options={&#34;strict_aud&#34;: True}, algorithms=[&#34;HS256&#34;], )</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:810</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, secret)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_api_jwt.py:812</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode( jwt_message, secret, audience=&#34;urn:foo&#34;, options={&#34;strict_aud&#34;: True}, algorithms=[&#34;HS256&#34;], )</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_jwt.py:16</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.encode(payload, secret, algorithm=&#34;HS256&#34;)</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      <tr data-label="green">
+        <td><span class="chip green">green</span></td>
+        <td><b>HMAC-SHA-256</b><div class="muted small">mac · sign</div></td>
+        <td><code>tests/test_jwt.py:17</code></td>
+        <td class="small">code</td>
+        <td><code>jwt.decode(jwt_message, secret, algorithms=[&#34;HS256&#34;])</code><div class="muted small">JWT algorithm HS256</div></td>
+        <td class="small">HMAC with a strong hash stays secure against quantum attacks</td>
+      </tr>
+      
+      </tbody>
+    </table>
+  </div>
+
+  <h2>What this scan cannot see</h2>
+  <div class="card small">
+    Algorithm names built at runtime (for example <code>"sha" + "1"</code> or values read from
+    configuration files), calls made through <code>getattr</code>, cryptography inside compiled
+    libraries, languages other than Python, and transitive dependencies. Certificate trust is not
+    checked. The TLS key-exchange group is the one negotiated with the scanning machine's OpenSSL.
+  </div>
+</main>
+<script>
+  const rows = [...document.querySelectorAll("#findings tbody tr")];
+  const buttons = [...document.querySelectorAll(".filters button")];
+  const q = document.getElementById("q");
+  let label = "all";
+  function apply() {
+    const term = q.value.toLowerCase();
+    rows.forEach(r => {
+      const ok = (label === "all" || r.dataset.label === label) &&
+                 (!term || r.textContent.toLowerCase().includes(term));
+      r.style.display = ok ? "" : "none";
+    });
+  }
+  buttons.forEach(b => b.addEventListener("click", () => {
+    buttons.forEach(x => x.classList.remove("on"));
+    b.classList.add("on"); label = b.dataset.label; apply();
+  }));
+  q.addEventListener("input", apply);
+</script>
+</body>
+</html>

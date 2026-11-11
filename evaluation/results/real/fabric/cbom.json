@@ -1,0 +1,87 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:4532ab09-1ea4-4259-9b81-e33c20b2e25f",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-11-11T13:55:20Z",
+    "tools": {
+      "components": [
+        {
+          "type": "application",
+          "name": "cbom-scanner",
+          "version": "1.0.0"
+        }
+      ]
+    },
+    "component": {
+      "type": "application",
+      "bom-ref": "app/fabric",
+      "name": "fabric"
+    }
+  },
+  "components": [
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/protocol/SSH",
+      "name": "SSH",
+      "cryptoProperties": {
+        "assetType": "protocol",
+        "protocolProperties": {
+          "type": "ssh"
+        }
+      },
+      "properties": [
+        {
+          "name": "cbom-scanner:quantum-label",
+          "value": "red"
+        },
+        {
+          "name": "cbom-scanner:quantum-safe",
+          "value": "false"
+        },
+        {
+          "name": "cbom-scanner:reason",
+          "value": "SSH session with classical key exchange (ECDH/DH), broken by Shor's algorithm"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "fabric/connection.py",
+            "line": 457,
+            "additionalContext": "SSHClient() (paramiko only offers classical SSH key exchange (curve25519, ECDH, DH))"
+          }
+        ]
+      }
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/paramiko",
+      "name": "paramiko",
+      "purl": "pkg:pypi/paramiko",
+      "description": "SSH: RSA, ECDSA, Ed25519 keys; ECDH/DH key exchange",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "setup.py",
+            "line": 68,
+            "additionalContext": "paramiko>=2.4 (SSH: RSA, ECDSA, Ed25519 keys; ECDH/DH key exchange)"
+          }
+        ]
+      }
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "app/fabric",
+      "dependsOn": [
+        "pkg:pypi/paramiko"
+      ]
+    },
+    {
+      "ref": "pkg:pypi/paramiko"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+# web app dependencies
+flask==3.0.3
+cryptography>=42.0  # expect: cryptography
+pycryptodome==3.20.0  # expect: pycryptodome
+requests==2.32.3
+PyJWT[crypto]==2.9.0  # expect: pyjwt
+-r base.txt

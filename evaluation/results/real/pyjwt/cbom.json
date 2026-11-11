@@ -1,0 +1,1050 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:69fa702f-434e-461f-9e8b-86da323f19c4",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-11-11T13:55:19Z",
+    "tools": {
+      "components": [
+        {
+          "type": "application",
+          "name": "cbom-scanner",
+          "version": "1.0.0"
+        }
+      ]
+    },
+    "component": {
+      "type": "application",
+      "bom-ref": "app/pyjwt",
+      "name": "pyjwt"
+    }
+  },
+  "components": [
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/Unknown",
+      "name": "Unknown",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "mac",
+          "cryptoFunctions": [
+            "tag"
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "cbom-scanner:quantum-label",
+          "value": "yellow"
+        },
+        {
+          "name": "cbom-scanner:quantum-safe",
+          "value": "false"
+        },
+        {
+          "name": "cbom-scanner:reason",
+          "value": "Unknown algorithm; review by hand"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "jwt/algorithms.py",
+            "line": 308,
+            "additionalContext": "hmac.new(key, msg, self.hash_alg) (HMAC hash is not given or computed at runtime)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/RSA",
+      "name": "RSA",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "signature",
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "sign"
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "cbom-scanner:quantum-label",
+          "value": "red"
+        },
+        {
+          "name": "cbom-scanner:quantum-safe",
+          "value": "false"
+        },
+        {
+          "name": "cbom-scanner:reason",
+          "value": "Public-key algorithm broken by Shor's algorithm on a quantum computer"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "jwt/algorithms.py",
+            "line": 475,
+            "additionalContext": "padding.PKCS1v15()"
+          },
+          {
+            "location": "jwt/algorithms.py",
+            "line": 479,
+            "additionalContext": "padding.PKCS1v15()"
+          },
+          {
+            "location": "jwt/algorithms.py",
+            "line": 674,
+            "additionalContext": "padding.PSS( mgf=padding.MGF1(self.hash_alg()), salt_length=self.hash_alg().digest_size, )"
+          },
+          {
+            "location": "jwt/algorithms.py",
+            "line": 686,
+            "additionalContext": "padding.PSS( mgf=padding.MGF1(self.hash_alg()), salt_length=self.hash_alg().digest_size, )"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 319,
+            "additionalContext": "jwt.decode(example_jwt, example_pubkey, algorithms=[\"RS384\"]) (JWT algorithm RS384)"
+          },
+          {
+            "location": "tests/test_jwks_client.py",
+            "line": 204,
+            "additionalContext": "jwt.decode( token, signing_key.key, algorithms=[\"RS256\"], audience=\"https://expenses-api\", options={\"verify_exp\": Fal... (JWT algorithm RS256)"
+          },
+          {
+            "location": "tests/keys/testkey_rsa.cer",
+            "line": 1,
+            "additionalContext": "certificate signature: sha256WithRSAEncryption (Signature hash: SHA-256)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/ECDSA",
+      "name": "ECDSA",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "signature",
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "sign"
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "cbom-scanner:quantum-label",
+          "value": "red"
+        },
+        {
+          "name": "cbom-scanner:quantum-safe",
+          "value": "false"
+        },
+        {
+          "name": "cbom-scanner:reason",
+          "value": "Public-key algorithm broken by Shor's algorithm on a quantum computer"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "jwt/algorithms.py",
+            "line": 528,
+            "additionalContext": "ECDSA(self.hash_alg())"
+          },
+          {
+            "location": "jwt/algorithms.py",
+            "line": 544,
+            "additionalContext": "ECDSA(self.hash_alg())"
+          }
+        ]
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/Ed25519",
+      "name": "Ed25519",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "signature",
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "keygen"
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "cbom-scanner:quantum-label",
+          "value": "red"
+        },
+        {
+          "name": "cbom-scanner:quantum-safe",
+          "value": "false"
+        },
+        {
+          "name": "cbom-scanner:reason",
+          "value": "Public-key algorithm broken by Shor's algorithm on a quantum computer"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "jwt/algorithms.py",
+            "line": 857,
+            "additionalContext": "Ed25519PrivateKey.from_private_bytes(d)"
+          },
+          {
+            "location": "tests/keys/testkey_ed25519.pub",
+            "line": 1,
+            "additionalContext": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC4pK2dePGgctIAsh0H/tmUr..."
+          }
+        ]
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/Ed448",
+      "name": "Ed448",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "signature",
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "keygen"
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "cbom-scanner:quantum-label",
+          "value": "red"
+        },
+        {
+          "name": "cbom-scanner:quantum-safe",
+          "value": "false"
+        },
+        {
+          "name": "cbom-scanner:reason",
+          "value": "Public-key algorithm broken by Shor's algorithm on a quantum computer"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "jwt/algorithms.py",
+            "line": 858,
+            "additionalContext": "Ed448PrivateKey.from_private_bytes(d)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/HMAC-SHA-256",
+      "name": "HMAC-SHA-256",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "mac",
+          "cryptoFunctions": [
+            "sign"
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "cbom-scanner:quantum-label",
+          "value": "green"
+        },
+        {
+          "name": "cbom-scanner:quantum-safe",
+          "value": "true"
+        },
+        {
+          "name": "cbom-scanner:reason",
+          "value": "HMAC with a strong hash stays secure against quantum attacks"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 45,
+            "additionalContext": "jwt.decode(example_jwt, example_secret, algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 77,
+            "additionalContext": "jwt.decode( example_jwt, key=example_secret, algorithms=[\"HS256\"] ) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 92,
+            "additionalContext": "jwt.decode(example_jwt, example_secret, algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 105,
+            "additionalContext": "jwt.decode(example_jwt, secret, algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 119,
+            "additionalContext": "jwt.decode(example_jwt, secret, audience=1, algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 133,
+            "additionalContext": "jwt.decode( example_jwt, secret, audience=\"my_audience\", algorithms=[\"HS256\"], ) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 152,
+            "additionalContext": "jwt.decode( example_jwt, secret, audience=\"my_audience\", algorithms=[\"HS256\"], ) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 168,
+            "additionalContext": "jwt.encode(t, \"secret\", algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 187,
+            "additionalContext": "jwt.encode( payload, \"secret\", algorithm=\"HS256\", headers={\"typ\": \"secevent+jwt\"} ) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 206,
+            "additionalContext": "jwt.decode(example_jwt, \"secret\", algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 219,
+            "additionalContext": "jwt.decode(example_jwt, \"secret\", algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 224,
+            "additionalContext": "jwt.encode(payload, secret) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 227,
+            "additionalContext": "jwt.decode(jwt_message, secret, algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 232,
+            "additionalContext": "jwt.encode(payload, secret) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 233,
+            "additionalContext": "jwt.decode(jwt_message, secret, algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 245,
+            "additionalContext": "jwt.decode(example_jwt, \"secret\", algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 254,
+            "additionalContext": "jwt.decode(example_jwt, \"secret\", algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 265,
+            "additionalContext": "jwt.encode(payload, secret) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 266,
+            "additionalContext": "jwt.decode( jwt_message, secret, leeway=1, algorithms=[\"HS256\"] ) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 326,
+            "additionalContext": "jwt.encode(payload, secret) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 329,
+            "additionalContext": "jwt.decode(jwt_message, secret, algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 334,
+            "additionalContext": "jwt.encode(payload, secret) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 337,
+            "additionalContext": "jwt.decode(jwt_message, secret, algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 342,
+            "additionalContext": "jwt.encode(payload, secret) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 344,
+            "additionalContext": "jwt.decode( jwt_message, secret, algorithms=[\"HS256\"], options={\"verify_exp\": False}, ) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 354,
+            "additionalContext": "jwt.encode(payload, secret) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 356,
+            "additionalContext": "jwt.decode( jwt_message, secret, algorithms=[\"HS256\"], options={\"verify_nbf\": False}, ) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 366,
+            "additionalContext": "jwt.encode(payload, secret) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 370,
+            "additionalContext": "jwt.decode( jwt_message, secret, leeway=leeway, algorithms=[\"HS256\"] ) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 378,
+            "additionalContext": "jwt.decode(jwt_message, secret, leeway=leeway, algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 383,
+            "additionalContext": "jwt.encode(payload, secret) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 386,
+            "additionalContext": "jwt.decode(jwt_message, secret, leeway=13, algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 389,
+            "additionalContext": "jwt.decode(jwt_message, secret, leeway=1, algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 393,
+            "additionalContext": "jwt.encode(payload, \"secret\") (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 394,
+            "additionalContext": "jwt.decode(token, \"secret\", audience=\"urn:me\", algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 398,
+            "additionalContext": "jwt.encode(payload, \"secret\") (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 399,
+            "additionalContext": "jwt.decode( token, \"secret\", audience=[\"urn:you\", \"urn:me\"], algorithms=[\"HS256\"], ) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 408,
+            "additionalContext": "jwt.encode(payload, \"secret\") (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 410,
+            "additionalContext": "jwt.decode(token, \"secret\", algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 414,
+            "additionalContext": "jwt.encode(payload, \"secret\") (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 416,
+            "additionalContext": "jwt.decode( token, \"secret\", audience=[\"urn:you\", \"urn:him\"], algorithms=[\"HS256\"], ) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 425,
+            "additionalContext": "jwt.encode(payload, \"secret\") (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 426,
+            "additionalContext": "jwt.decode(token, \"secret\", audience=\"urn:me\", algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 431,
+            "additionalContext": "jwt.encode(payload, \"secret\") (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 434,
+            "additionalContext": "jwt.decode(token, \"secret\", audience=\"urn-me\", algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 438,
+            "additionalContext": "jwt.encode(payload, \"secret\") (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 440,
+            "additionalContext": "jwt.decode(token, \"secret\", audience=b\"urn:me\", algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 448,
+            "additionalContext": "jwt.encode(payload, \"secret\") (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 451,
+            "additionalContext": "jwt.decode(token, \"secret\", audience=\"urn:me\", algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 458,
+            "additionalContext": "jwt.encode(payload, \"secret\") (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 461,
+            "additionalContext": "jwt.decode(token, \"secret\", issuer=issuer, algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 467,
+            "additionalContext": "jwt.encode(payload, \"secret\") (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 470,
+            "additionalContext": "jwt.decode(token, \"secret\", audience=\"urn:me\", algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 476,
+            "additionalContext": "jwt.encode(payload, \"secret\") (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 479,
+            "additionalContext": "jwt.decode(token, \"secret\", audience=\"urn:me\", algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 486,
+            "additionalContext": "jwt.encode(payload, \"secret\") (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 487,
+            "additionalContext": "jwt.decode(token, \"secret\", issuer=issuer, algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 492,
+            "additionalContext": "jwt.encode(payload, \"secret\") (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 493,
+            "additionalContext": "jwt.decode(token, \"secret\", issuer=issuer, algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 500,
+            "additionalContext": "jwt.encode(payload, \"secret\") (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 503,
+            "additionalContext": "jwt.decode(token, \"secret\", issuer=issuer, algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 510,
+            "additionalContext": "jwt.encode(payload, \"secret\") (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 513,
+            "additionalContext": "jwt.decode(token, \"secret\", issuer=issuer, algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 517,
+            "additionalContext": "jwt.encode(payload, \"secret\") (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 518,
+            "additionalContext": "jwt.decode( token, \"secret\", options={\"verify_aud\": False}, algorithms=[\"HS256\"], ) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 530,
+            "additionalContext": "jwt.encode(payload, \"secret\") (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 531,
+            "additionalContext": "jwt.decode( token, \"secret\", options={\"verify_exp\": False}, algorithms=[\"HS256\"], ) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 543,
+            "additionalContext": "jwt.encode(payload, \"secret\") (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 546,
+            "additionalContext": "jwt.decode( token, \"secret\", options={\"require\": [\"exp\"]}, algorithms=[\"HS256\"], ) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 560,
+            "additionalContext": "jwt.encode(payload, \"secret\") (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 563,
+            "additionalContext": "jwt.decode( token, \"secret\", options={\"require\": [\"iat\"]}, algorithms=[\"HS256\"], ) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 577,
+            "additionalContext": "jwt.encode(payload, \"secret\") (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 580,
+            "additionalContext": "jwt.decode( token, \"secret\", options={\"require\": [\"nbf\"]}, algorithms=[\"HS256\"], ) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 595,
+            "additionalContext": "jwt.decode( token, \"secret\", options={\"verify_signature\": False}, algorithms=[\"HS256\"], ) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 607,
+            "additionalContext": "jwt.encode(payload, \"secret\") (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 608,
+            "additionalContext": "jwt.decode( token, \"secret\", options={\"verify_iat\": False}, algorithms=[\"HS256\"], ) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 620,
+            "additionalContext": "jwt.encode(payload, \"secret\") (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 621,
+            "additionalContext": "jwt.decode( token, \"secret\", options={\"verify_nbf\": False}, algorithms=[\"HS256\"], ) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 638,
+            "additionalContext": "jwt.encode(data, \"secret\", algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 640,
+            "additionalContext": "jwt.encode(data, \"secret\", json_encoder=CustomJSONEncoder) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 641,
+            "additionalContext": "jwt.decode(token, \"secret\", algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 648,
+            "additionalContext": "jwt.encode(payload, secret) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 650,
+            "additionalContext": "jwt.decode( jwt_message, secret, algorithms=[\"HS256\"], options={\"verify_exp\": False}, ) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 658,
+            "additionalContext": "jwt.decode( jwt_message, secret, algorithms=[\"HS256\"], options={\"verify_exp\": True}, ) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 668,
+            "additionalContext": "jwt.encode(payload, secret) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 683,
+            "additionalContext": "jwt.encode(payload, secret) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 695,
+            "additionalContext": "jwt.encode(payload, secret) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 701,
+            "additionalContext": "jwt.encode(payload, secret) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 706,
+            "additionalContext": "jwt.decode(jwt_message, secret, verify=False, algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 719,
+            "additionalContext": "jwt.encode(payload, secret) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 720,
+            "additionalContext": "jwt.decode(jwt_message, secret, options=options, algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 725,
+            "additionalContext": "jwt.encode(payload, secret) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 728,
+            "additionalContext": "jwt.decode(jwt_message, secret, algorithms=[\"HS256\"], foo=\"bar\") (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 734,
+            "additionalContext": "jwt.encode(payload, secret) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 744,
+            "additionalContext": "jwt.encode(payload, secret) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 747,
+            "additionalContext": "jwt.decode( jwt_message, secret, audience=[\"urn:foo\", \"urn:bar\"], options={\"strict_aud\": False}, algorithms=[\"HS256\"], ) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 757,
+            "additionalContext": "jwt.decode( jwt_message, secret, audience=[\"urn:foo\", \"urn:bar\"], options={\"strict_aud\": True}, algorithms=[\"HS256\"], ) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 768,
+            "additionalContext": "jwt.encode(payload, secret) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 771,
+            "additionalContext": "jwt.decode( jwt_message, secret, audience=\"urn:foo\", options={\"strict_aud\": False}, algorithms=[\"HS256\"], ) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 783,
+            "additionalContext": "jwt.decode( jwt_message, secret, audience=\"urn:foo\", options={\"strict_aud\": True}, algorithms=[\"HS256\"], ) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 794,
+            "additionalContext": "jwt.encode(payload, secret) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 799,
+            "additionalContext": "jwt.decode( jwt_message, secret, audience=\"urn:bar\", options={\"strict_aud\": True}, algorithms=[\"HS256\"], ) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 810,
+            "additionalContext": "jwt.encode(payload, secret) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 812,
+            "additionalContext": "jwt.decode( jwt_message, secret, audience=\"urn:foo\", options={\"strict_aud\": True}, algorithms=[\"HS256\"], ) (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_jwt.py",
+            "line": 16,
+            "additionalContext": "jwt.encode(payload, secret, algorithm=\"HS256\") (JWT algorithm HS256)"
+          },
+          {
+            "location": "tests/test_jwt.py",
+            "line": 17,
+            "additionalContext": "jwt.decode(jwt_message, secret, algorithms=[\"HS256\"]) (JWT algorithm HS256)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/ECDSA-P-256",
+      "name": "ECDSA-P-256",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "signature",
+          "curve": "P-256",
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "sign"
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "cbom-scanner:quantum-label",
+          "value": "red"
+        },
+        {
+          "name": "cbom-scanner:quantum-safe",
+          "value": "false"
+        },
+        {
+          "name": "cbom-scanner:reason",
+          "value": "Public-key algorithm broken by Shor's algorithm on a quantum computer"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "tests/test_api_jwt.py",
+            "line": 295,
+            "additionalContext": "jwt.decode(example_jwt, example_pubkey, algorithms=[\"ES256\"]) (JWT algorithm ES256)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/RSA-2048",
+      "name": "RSA-2048",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "pke",
+          "parameterSetIdentifier": "2048",
+          "nistQuantumSecurityLevel": 0
+        }
+      },
+      "properties": [
+        {
+          "name": "cbom-scanner:quantum-label",
+          "value": "red"
+        },
+        {
+          "name": "cbom-scanner:quantum-safe",
+          "value": "false"
+        },
+        {
+          "name": "cbom-scanner:reason",
+          "value": "Public-key algorithm broken by Shor's algorithm on a quantum computer"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "tests/keys/testkey2_rsa.pub.pem",
+            "line": 1,
+            "additionalContext": "-----BEGIN PUBLIC KEY-----"
+          },
+          {
+            "location": "tests/keys/testkey_rsa.cer",
+            "line": 1,
+            "additionalContext": "certificate key: OU=Test Certificate,O=PyJWT,L=Austin,ST=Texas,C=US (Certificate expires 2018-03-17)"
+          },
+          {
+            "location": "tests/keys/testkey_rsa.pub",
+            "line": 1,
+            "additionalContext": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDUeDMF8m/Zw6NCvILB7w0R..."
+          }
+        ]
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/EC-P-256",
+      "name": "EC-P-256",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "signature",
+          "curve": "P-256",
+          "nistQuantumSecurityLevel": 0
+        }
+      },
+      "properties": [
+        {
+          "name": "cbom-scanner:quantum-label",
+          "value": "red"
+        },
+        {
+          "name": "cbom-scanner:quantum-safe",
+          "value": "false"
+        },
+        {
+          "name": "cbom-scanner:reason",
+          "value": "Public-key algorithm broken by Shor's algorithm on a quantum computer"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "tests/keys/testkey_ec.pub",
+            "line": 1,
+            "additionalContext": "-----BEGIN PUBLIC KEY-----"
+          },
+          {
+            "location": "tests/keys/testkey_ec_ssh.pub",
+            "line": 1,
+            "additionalContext": "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlz..."
+          }
+        ]
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/RSA-1024",
+      "name": "RSA-1024",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "pke",
+          "parameterSetIdentifier": "1024",
+          "nistQuantumSecurityLevel": 0
+        }
+      },
+      "properties": [
+        {
+          "name": "cbom-scanner:quantum-label",
+          "value": "red"
+        },
+        {
+          "name": "cbom-scanner:quantum-safe",
+          "value": "false"
+        },
+        {
+          "name": "cbom-scanner:reason",
+          "value": "Public-key algorithm broken by Shor's algorithm on a quantum computer"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "tests/keys/testkey_pkcs1.pub.pem",
+            "line": 1,
+            "additionalContext": "-----BEGIN RSA PUBLIC KEY-----"
+          }
+        ]
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/certificate/d138b22af71245fc",
+      "name": "OU=Test Certificate,O=PyJWT,L=Austin,ST=Texas,C=US",
+      "cryptoProperties": {
+        "assetType": "certificate",
+        "certificateProperties": {
+          "subjectName": "OU=Test Certificate,O=PyJWT,L=Austin,ST=Texas,C=US",
+          "issuerName": "OU=Test Certificate,O=PyJWT,L=Austin,ST=Texas,C=US",
+          "notValidBefore": "2015-03-18T01:16:14+00:00",
+          "notValidAfter": "2018-03-17T01:16:14+00:00",
+          "certificateFormat": "X.509",
+          "subjectPublicKeyRef": "crypto/algorithm/RSA-2048",
+          "signatureAlgorithmRef": "crypto/algorithm/RSA"
+        }
+      },
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "tests/keys/testkey_rsa.cer",
+            "line": 1,
+            "additionalContext": "certificate key: OU=Test Certificate,O=PyJWT,L=Austin,ST=Texas,C=US (Certificate expires 2018-03-17)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/protocol/TLS",
+      "name": "TLS",
+      "cryptoProperties": {
+        "assetType": "protocol",
+        "protocolProperties": {
+          "type": "tls"
+        }
+      },
+      "properties": [
+        {
+          "name": "cbom-scanner:quantum-label",
+          "value": "yellow"
+        },
+        {
+          "name": "cbom-scanner:quantum-safe",
+          "value": "false"
+        },
+        {
+          "name": "cbom-scanner:reason",
+          "value": "TLS with library defaults: the key exchange is classical (ECDHE) unless a hybrid ML-KEM group is negotiated"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "tests/test_jwks_client.py",
+            "line": 342,
+            "additionalContext": "ssl.create_default_context() (Negotiated TLS version and key exchange decide quantum safety; run the TLS checker on the server)"
+          },
+          {
+            "location": "tests/test_jwks_client.py",
+            "line": 351,
+            "additionalContext": "ssl.SSLContext(protocol=ssl.PROTOCOL_TLS_CLIENT) (Negotiated TLS version and key exchange decide quantum safety; run the TLS checker on the server)"
+          }
+        ]
+      }
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "app/pyjwt",
+      "dependsOn": []
+    }
+  ]
+}

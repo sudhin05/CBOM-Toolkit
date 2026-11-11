@@ -1,0 +1,112 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:30d7d29e-87ea-4db9-aad4-2a4bde6b9e0f",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-11-11T13:55:18Z",
+    "tools": {
+      "components": [
+        {
+          "type": "application",
+          "name": "cbom-scanner",
+          "version": "1.0.0"
+        }
+      ]
+    },
+    "component": {
+      "type": "application",
+      "bom-ref": "app/itsdangerous",
+      "name": "itsdangerous"
+    }
+  },
+  "components": [
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/SHA-1",
+      "name": "SHA-1",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "hash",
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "digest"
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "cbom-scanner:quantum-label",
+          "value": "yellow"
+        },
+        {
+          "name": "cbom-scanner:quantum-safe",
+          "value": "false"
+        },
+        {
+          "name": "cbom-scanner:reason",
+          "value": "Hash is broken or weak today (collisions); use SHA-256 or SHA-3"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "src/itsdangerous/signer.py",
+            "line": 45,
+            "additionalContext": "hashlib.sha1(string)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/Unknown",
+      "name": "Unknown",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "mac",
+          "cryptoFunctions": [
+            "tag"
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "cbom-scanner:quantum-label",
+          "value": "yellow"
+        },
+        {
+          "name": "cbom-scanner:quantum-safe",
+          "value": "false"
+        },
+        {
+          "name": "cbom-scanner:reason",
+          "value": "Unknown algorithm; review by hand"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "src/itsdangerous/signer.py",
+            "line": 63,
+            "additionalContext": "hmac.new(key, msg=value, digestmod=self.digest_method) (HMAC hash is not given or computed at runtime)"
+          },
+          {
+            "location": "src/itsdangerous/signer.py",
+            "line": 207,
+            "additionalContext": "hmac.new(secret_key, digestmod=self.digest_method) (HMAC hash is not given or computed at runtime)"
+          }
+        ]
+      }
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "app/itsdangerous",
+      "dependsOn": []
+    }
+  ]
+}

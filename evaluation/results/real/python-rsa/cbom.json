@@ -1,0 +1,294 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:45cebe26-759c-4e60-a1b7-0e9adb04ff75",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-11-11T13:55:20Z",
+    "tools": {
+      "components": [
+        {
+          "type": "application",
+          "name": "cbom-scanner",
+          "version": "1.0.0"
+        }
+      ]
+    },
+    "component": {
+      "type": "application",
+      "bom-ref": "app/python-rsa",
+      "name": "python-rsa"
+    }
+  },
+  "components": [
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/RSA",
+      "name": "RSA",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "pke",
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "keygen",
+            "encrypt",
+            "sign"
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "cbom-scanner:quantum-label",
+          "value": "red"
+        },
+        {
+          "name": "cbom-scanner:quantum-safe",
+          "value": "false"
+        },
+        {
+          "name": "cbom-scanner:reason",
+          "value": "Public-key algorithm broken by Shor's algorithm on a quantum computer"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "create_timing_table.py",
+            "line": 30,
+            "additionalContext": "rsa.newkeys(bitsize, accurate=accurate, poolsize=poolsize)"
+          },
+          {
+            "location": "rsa/cli.py",
+            "line": 79,
+            "additionalContext": "rsa.newkeys(keysize)"
+          },
+          {
+            "location": "rsa/cli.py",
+            "line": 226,
+            "additionalContext": "rsa.encrypt(indata, pub_key)"
+          },
+          {
+            "location": "rsa/cli.py",
+            "line": 280,
+            "additionalContext": "rsa.sign(indata, priv_key, hash_method)"
+          },
+          {
+            "location": "tests/test_strings.py",
+            "line": 34,
+            "additionalContext": "rsa.encrypt(message, self.pub)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/RSA-512",
+      "name": "RSA-512",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "pke",
+          "parameterSetIdentifier": "512",
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "keygen"
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "cbom-scanner:quantum-label",
+          "value": "red"
+        },
+        {
+          "name": "cbom-scanner:quantum-safe",
+          "value": "false"
+        },
+        {
+          "name": "cbom-scanner:reason",
+          "value": "Public-key algorithm broken by Shor's algorithm on a quantum computer"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "tests/test_cli.py",
+            "line": 85,
+            "additionalContext": "rsa.newkeys(512)"
+          },
+          {
+            "location": "tests/test_pkcs1.py",
+            "line": 95,
+            "additionalContext": "rsa.newkeys(512)"
+          },
+          {
+            "location": "tests/test_pkcs1.py",
+            "line": 131,
+            "additionalContext": "rsa.newkeys(512)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/RSA-64",
+      "name": "RSA-64",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "pke",
+          "parameterSetIdentifier": "64",
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "keygen"
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "cbom-scanner:quantum-label",
+          "value": "red"
+        },
+        {
+          "name": "cbom-scanner:quantum-safe",
+          "value": "false"
+        },
+        {
+          "name": "cbom-scanner:reason",
+          "value": "Public-key algorithm broken by Shor's algorithm on a quantum computer"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "tests/test_integers.py",
+            "line": 25,
+            "additionalContext": "rsa.newkeys(64)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/RSA-256",
+      "name": "RSA-256",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "pke",
+          "parameterSetIdentifier": "256",
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "keygen"
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "cbom-scanner:quantum-label",
+          "value": "red"
+        },
+        {
+          "name": "cbom-scanner:quantum-safe",
+          "value": "false"
+        },
+        {
+          "name": "cbom-scanner:reason",
+          "value": "Public-key algorithm broken by Shor's algorithm on a quantum computer"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "tests/test_pkcs1.py",
+            "line": 27,
+            "additionalContext": "rsa.newkeys(256)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/RSA-384",
+      "name": "RSA-384",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "pke",
+          "parameterSetIdentifier": "384",
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "keygen"
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "cbom-scanner:quantum-label",
+          "value": "red"
+        },
+        {
+          "name": "cbom-scanner:quantum-safe",
+          "value": "false"
+        },
+        {
+          "name": "cbom-scanner:reason",
+          "value": "Public-key algorithm broken by Shor's algorithm on a quantum computer"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "tests/test_strings.py",
+            "line": 28,
+            "additionalContext": "rsa.newkeys(384)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/RSA-128",
+      "name": "RSA-128",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "pke",
+          "parameterSetIdentifier": "128",
+          "nistQuantumSecurityLevel": 0
+        }
+      },
+      "properties": [
+        {
+          "name": "cbom-scanner:quantum-label",
+          "value": "red"
+        },
+        {
+          "name": "cbom-scanner:quantum-safe",
+          "value": "false"
+        },
+        {
+          "name": "cbom-scanner:reason",
+          "value": "Public-key algorithm broken by Shor's algorithm on a quantum computer"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "tests/private.pem",
+            "line": 1,
+            "additionalContext": "-----BEGIN RSA PRIVATE KEY-----"
+          }
+        ]
+      }
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "app/python-rsa",
+      "dependsOn": []
+    }
+  ]
+}

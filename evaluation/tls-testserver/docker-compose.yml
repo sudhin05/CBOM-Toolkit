@@ -1,0 +1,11 @@
+# Start:  docker compose -f evaluation/tls-testserver/docker-compose.yml up -d
+# Scan:   python scan.py --url localhost:8443
+# Stop:   docker compose -f evaluation/tls-testserver/docker-compose.yml down
+services:
+  tls-test:
+    image: nginx:1.27-alpine
+    ports:
+      - "8443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certs:/etc/nginx/certs:ro

@@ -1,0 +1,53 @@
+[
+  {
+    "source": "code",
+    "file": "src/itsdangerous/signer.py",
+    "line": 45,
+    "algorithm": "SHA-1",
+    "param": null,
+    "name": "SHA-1",
+    "primitive": "hash",
+    "function": "digest",
+    "evidence": "hashlib.sha1(string)",
+    "label": "yellow",
+    "quantum_safe": false,
+    "reason": "Hash is broken or weak today (collisions); use SHA-256 or SHA-3",
+    "note": "",
+    "extra": {},
+    "project": "itsdangerous"
+  },
+  {
+    "source": "code",
+    "file": "src/itsdangerous/signer.py",
+    "line": 63,
+    "algorithm": "Unknown",
+    "param": null,
+    "name": "Unknown",
+    "primitive": "mac",
+    "function": "tag",
+    "evidence": "hmac.new(key, msg=value, digestmod=self.digest_method)",
+    "label": "yellow",
+    "quantum_safe": false,
+    "reason": "Unknown algorithm; review by hand",
+    "note": "HMAC hash is not given or computed at runtime",
+    "extra": {},
+    "project": "itsdangerous"
+  },
+  {
+    "source": "code",
+    "file": "src/itsdangerous/signer.py",
+    "line": 207,
+    "algorithm": "Unknown",
+    "param": null,
+    "name": "Unknown",
+    "primitive": "mac",
+    "function": "tag",
+    "evidence": "hmac.new(secret_key, digestmod=self.digest_method)",
+    "label": "yellow",
+    "quantum_safe": false,
+    "reason": "Unknown algorithm; review by hand",
+    "note": "HMAC hash is not given or computed at runtime",
+    "extra": {},
+    "project": "itsdangerous"
+  }
+]

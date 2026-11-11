@@ -1,0 +1,6 @@
+{
+  "_comment": "Answer key for files that cannot hold '# expect:' comments (certificates and keys). Format: file -> list of [algorithm, line].",
+  "tc26_rsa3072_cert.crt": [["RSA-3072", 1], ["RSA", 1]],
+  "tc27_ec_p256_key.key": [["EC-P-256", 1]],
+  "tc28_ed25519_cert.pem": [["Ed25519", 1]]
+}

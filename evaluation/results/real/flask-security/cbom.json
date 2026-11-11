@@ -1,0 +1,312 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:ec1fd593-4e35-43e6-b674-7462c3da0f28",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-11-11T13:55:20Z",
+    "tools": {
+      "components": [
+        {
+          "type": "application",
+          "name": "cbom-scanner",
+          "version": "1.0.0"
+        }
+      ]
+    },
+    "component": {
+      "type": "application",
+      "bom-ref": "app/flask-security",
+      "name": "flask-security"
+    }
+  },
+  "components": [
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/AES-128",
+      "name": "AES-128",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "ae",
+          "parameterSetIdentifier": "128",
+          "nistQuantumSecurityLevel": 1,
+          "cryptoFunctions": [
+            "encrypt"
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "cbom-scanner:quantum-label",
+          "value": "yellow"
+        },
+        {
+          "name": "cbom-scanner:quantum-safe",
+          "value": "false"
+        },
+        {
+          "name": "cbom-scanner:reason",
+          "value": "128-bit key is halved to 64-bit security by Grover's algorithm; use 256-bit"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "flask_security/recovery_codes.py",
+            "line": 71,
+            "additionalContext": "Fernet(key) (Fernet always uses AES-128-CBC with HMAC-SHA256)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/HMAC-SHA-512",
+      "name": "HMAC-SHA-512",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "mac",
+          "cryptoFunctions": [
+            "tag"
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "cbom-scanner:quantum-label",
+          "value": "green"
+        },
+        {
+          "name": "cbom-scanner:quantum-safe",
+          "value": "true"
+        },
+        {
+          "name": "cbom-scanner:reason",
+          "value": "HMAC with a strong hash stays secure against quantum attacks"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "flask_security/utils.py",
+            "line": 345,
+            "additionalContext": "hmac.new(encode_string(salt), encode_string(password), hashlib.sha512)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/SHA-1",
+      "name": "SHA-1",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "hash",
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "digest"
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "cbom-scanner:quantum-label",
+          "value": "yellow"
+        },
+        {
+          "name": "cbom-scanner:quantum-safe",
+          "value": "false"
+        },
+        {
+          "name": "cbom-scanner:reason",
+          "value": "Hash is broken or weak today (collisions); use SHA-256 or SHA-3"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "flask_security/utils.py",
+            "line": 1348,
+            "additionalContext": "hashlib.sha1(password.encode(\"utf8\"))"
+          }
+        ]
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "bom-ref": "crypto/algorithm/MD5",
+      "name": "MD5",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "algorithmProperties": {
+          "primitive": "hash",
+          "nistQuantumSecurityLevel": 0,
+          "cryptoFunctions": [
+            "digest"
+          ]
+        }
+      },
+      "properties": [
+        {
+          "name": "cbom-scanner:quantum-label",
+          "value": "yellow"
+        },
+        {
+          "name": "cbom-scanner:quantum-safe",
+          "value": "false"
+        },
+        {
+          "name": "cbom-scanner:reason",
+          "value": "Hash is broken or weak today (collisions); use SHA-256 or SHA-3"
+        }
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "tests/test_misc.py",
+            "line": 324,
+            "additionalContext": "hashlib.md5(encode_string(data))"
+          },
+          {
+            "location": "tests/test_misc.py",
+            "line": 341,
+            "additionalContext": "hashlib.md5(encode_string(\"hell\u00f6\"))"
+          }
+        ]
+      }
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/passlib",
+      "name": "passlib",
+      "purl": "pkg:pypi/passlib",
+      "description": "Password hashing: bcrypt, PBKDF2, argon2, legacy MD5-crypt",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "pyproject.toml",
+            "line": 45,
+            "additionalContext": "passlib>=1.7.4 (Password hashing: bcrypt, PBKDF2, argon2, legacy MD5-crypt)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/argon2-cffi",
+      "name": "argon2-cffi",
+      "purl": "pkg:pypi/argon2-cffi",
+      "description": "Password hashing (Argon2)",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "pyproject.toml",
+            "line": 53,
+            "additionalContext": "argon2_cffi>=21.3.0 (Password hashing (Argon2))"
+          }
+        ]
+      }
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/bcrypt",
+      "name": "bcrypt",
+      "purl": "pkg:pypi/bcrypt",
+      "description": "Password hashing (bcrypt)",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "pyproject.toml",
+            "line": 53,
+            "additionalContext": "bcrypt>=4.0.1 (Password hashing (bcrypt))"
+          }
+        ]
+      }
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/cryptography",
+      "name": "cryptography",
+      "purl": "pkg:pypi/cryptography",
+      "description": "General-purpose: RSA, EC, Ed25519, AES, ChaCha20, hashes, X.509",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "pyproject.toml",
+            "line": 54,
+            "additionalContext": "cryptography>=40.0.2 (General-purpose: RSA, EC, Ed25519, AES, ChaCha20, hashes, X.509)"
+          }
+        ]
+      }
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/authlib@1.2.0",
+      "name": "authlib",
+      "purl": "pkg:pypi/authlib@1.2.0",
+      "description": "OAuth/JOSE: RSA, ECDSA, HMAC signatures",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "pyproject.toml",
+            "line": 66,
+            "additionalContext": "authlib==1.2.0 (OAuth/JOSE: RSA, ECDSA, HMAC signatures)"
+          }
+        ]
+      },
+      "version": "1.2.0"
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:pypi/itsdangerous@2.1.2",
+      "name": "itsdangerous",
+      "purl": "pkg:pypi/itsdangerous@2.1.2",
+      "description": "Signed tokens using HMAC (SHA-1 by default)",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "pyproject.toml",
+            "line": 72,
+            "additionalContext": "itsdangerous==2.1.2 (Signed tokens using HMAC (SHA-1 by default))"
+          }
+        ]
+      },
+      "version": "2.1.2"
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "app/flask-security",
+      "dependsOn": [
+        "pkg:pypi/passlib",
+        "pkg:pypi/argon2-cffi",
+        "pkg:pypi/bcrypt",
+        "pkg:pypi/cryptography",
+        "pkg:pypi/authlib@1.2.0",
+        "pkg:pypi/itsdangerous@2.1.2"
+      ]
+    },
+    {
+      "ref": "pkg:pypi/passlib"
+    },
+    {
+      "ref": "pkg:pypi/argon2-cffi"
+    },
+    {
+      "ref": "pkg:pypi/bcrypt"
+    },
+    {
+      "ref": "pkg:pypi/cryptography"
+    },
+    {
+      "ref": "pkg:pypi/authlib@1.2.0"
+    },
+    {
+      "ref": "pkg:pypi/itsdangerous@2.1.2"
+    }
+  ]
+}
